@@ -9,8 +9,8 @@
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "3853A582-91BA-44CF-83E2-E47CCF59790D",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "AC56B5A826EFC8C045C4CEFFD93C0FC5723044B9" : "SoftU2FTool\/",
-    "255AD7C5569D0E3618B1ECBAA9C64282DB21D5ED" : "SoftU2FTool\/SoftU2F\/"
+    "AC56B5A826EFC8C045C4CEFFD93C0FC5723044B9" : "u2f-touchid\/",
+    "255AD7C5569D0E3618B1ECBAA9C64282DB21D5ED" : "u2f-touchid\/SoftU2F\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "SoftU2FTool",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
