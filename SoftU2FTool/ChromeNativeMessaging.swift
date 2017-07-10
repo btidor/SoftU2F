@@ -10,28 +10,43 @@ import Foundation
 
 /// Helpers for acting as a native application in Chrome's Native Messaging protocol
 class ChromeNativeMessaging {
-    static func receiveMessage() throws -> [String: Any] {
+    static var MAX_INPUT: UInt32 = 1024 * 1024 // 1 MB
+    
+    class func receiveMessage() throws -> [String: Any] {
         let len = readInt()
-        let rawMessage = FileHandle.standardInput.readData(ofLength: Int(len))
+        if len > MAX_INPUT { throw ChromeNativeMessagingError.InputTooLarge }
+        let rawMessage = readData(ofLength: Int(len))
         let json = try JSONSerialization.jsonObject(with: rawMessage) as! [String: Any]
         return json
     }
     
-    static func sendMessage(_ message: [String: Any]) throws {
+    class func sendMessage(_ message: [String: Any]) throws {
         let rawMessage = try JSONSerialization.data(withJSONObject: message)
         var len = UInt32(rawMessage.count)
         let rawLen = Data(bytes: &len, count: MemoryLayout<UInt32>.size)
         
-        FileHandle.standardOutput.write(rawLen)
-        FileHandle.standardOutput.write(rawMessage)
+        write(rawLen)
+        write(rawMessage)
     }
     
-    static func printEror(_ message: Any) {
+    class func printEror(_ message: Any) {
         FileHandle.standardError.write("\(message)\n".data(using: .utf8)!)
     }
     
-    private static func readInt() -> UInt32 {
+    internal class func readInt() -> UInt32 {
         let data = FileHandle.standardInput.readData(ofLength: MemoryLayout<UInt32>.size)
         return data.withUnsafeBytes { $0.pointee } as UInt32
+    }
+    
+    internal class func readData(ofLength: Int) -> Data {
+        return FileHandle.standardInput.readData(ofLength: ofLength)
+    }
+    
+    internal class func write(_ data: Data) {
+        return FileHandle.standardOutput.write(data)
+    }
+    
+    enum ChromeNativeMessagingError: Error {
+        case InputTooLarge
     }
 }
