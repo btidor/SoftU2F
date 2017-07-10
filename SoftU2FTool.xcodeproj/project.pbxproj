@@ -28,6 +28,7 @@
 		51FE30EF1E40F3DB00BAE824 /* U2FRegistrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FE30EE1E40F3DB00BAE824 /* U2FRegistrationTests.swift */; };
 		51FE30F11E410B3D00BAE824 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FE30F01E410B3D00BAE824 /* Utils.swift */; };
 		51FFC71F1E3FEAA4006275E2 /* SoftU2FTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FFC71E1E3FEAA4006275E2 /* SoftU2FTestCase.swift */; };
+		90508DE01F130B37003F32E1 /* ChromeNativeMessaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90508DDF1F130B37003F32E1 /* ChromeNativeMessaging.swift */; };
 		F71A9CC51EA810FA00809745 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F71A9CC41EA810FA00809745 /* MainMenu.xib */; };
 		F738F4F51E4A2CCC005680A2 /* APDU.h in Headers */ = {isa = PBXBuildFile; fileRef = F738F4F31E4A2CCC005680A2 /* APDU.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F738F4F81E4A2CCC005680A2 /* APDU.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F738F4F11E4A2CCB005680A2 /* APDU.framework */; };
@@ -205,6 +206,7 @@
 		51FE30EE1E40F3DB00BAE824 /* U2FRegistrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = U2FRegistrationTests.swift; sourceTree = "<group>"; };
 		51FE30F01E410B3D00BAE824 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		51FFC71E1E3FEAA4006275E2 /* SoftU2FTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoftU2FTestCase.swift; sourceTree = "<group>"; };
+		90508DDF1F130B37003F32E1 /* ChromeNativeMessaging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChromeNativeMessaging.swift; sourceTree = "<group>"; };
 		F71A9CC41EA810FA00809745 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		F738F4F11E4A2CCB005680A2 /* APDU.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = APDU.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F738F4F31E4A2CCC005680A2 /* APDU.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APDU.h; sourceTree = "<group>"; };
@@ -351,22 +353,23 @@
 		51F0900E1E37E8C600F03AD3 /* SoftU2FTool */ = {
 			isa = PBXGroup;
 			children = (
-				F7ABD9BD1E80603D00768FEC /* Assets.xcassets */,
 				5131C19D1E3A77EE006A820C /* SoftU2FTool.entitlements */,
-				F71A9CC41EA810FA00809745 /* MainMenu.xib */,
-				51F0900F1E37E8C600F03AD3 /* AppDelegate.swift */,
-				51E2145F1E3823E7005B2864 /* SHA256.swift */,
-				51E214611E382521005B2864 /* WebSafeBase64.swift */,
-				5190B6111E3BFE3D00E6FE06 /* UserPresence.swift */,
-				5119862D1E3C1519006A3BBB /* KnownFacets.swift */,
-				514F3D811E43C833008FA513 /* Keychain.swift */,
-				514F3D861E43E828008FA513 /* KeyPair.swift */,
-				51FE30F01E410B3D00BAE824 /* Utils.swift */,
-				51213EC51E3916EB005454E0 /* U2FHID.swift */,
-				51B289E41E39903F00AD90CC /* U2FAuthenticator.swift */,
-				51FE30EC1E403DA000BAE824 /* U2FRegistration.swift */,
 				518537BF1E380E4600600911 /* SoftU2FTool-Bridging-Header.h */,
 				51F090181E37E8C600F03AD3 /* Info.plist */,
+				51F0900F1E37E8C600F03AD3 /* AppDelegate.swift */,
+				90508DDF1F130B37003F32E1 /* ChromeNativeMessaging.swift */,
+				514F3D811E43C833008FA513 /* Keychain.swift */,
+				514F3D861E43E828008FA513 /* KeyPair.swift */,
+				5119862D1E3C1519006A3BBB /* KnownFacets.swift */,
+				51E2145F1E3823E7005B2864 /* SHA256.swift */,
+				51B289E41E39903F00AD90CC /* U2FAuthenticator.swift */,
+				51213EC51E3916EB005454E0 /* U2FHID.swift */,
+				51FE30EC1E403DA000BAE824 /* U2FRegistration.swift */,
+				5190B6111E3BFE3D00E6FE06 /* UserPresence.swift */,
+				51FE30F01E410B3D00BAE824 /* Utils.swift */,
+				51E214611E382521005B2864 /* WebSafeBase64.swift */,
+				F7ABD9BD1E80603D00768FEC /* Assets.xcassets */,
+				F71A9CC41EA810FA00809745 /* MainMenu.xib */,
 			);
 			path = SoftU2FTool;
 			sourceTree = "<group>";
@@ -374,16 +377,16 @@
 		51F090201E37E8C600F03AD3 /* SoftU2FToolTests */ = {
 			isa = PBXGroup;
 			children = (
-				51FE30EE1E40F3DB00BAE824 /* U2FRegistrationTests.swift */,
-				51E2145D1E3823E0005B2864 /* SHA256Tests.swift */,
-				51203C381E39234000F661DF /* U2FHIDTests.swift */,
-				51E214631E382529005B2864 /* WebSafeBase64Tests.swift */,
-				5131C1AE1E3B9C62006A820C /* IntegrationTests.swift */,
-				51FFC71E1E3FEAA4006275E2 /* SoftU2FTestCase.swift */,
-				51EF60B11E427EE200D429F2 /* UtilsTests.swift */,
-				51213EC11E3834F8005454E0 /* TestUtil.swift */,
 				51E214531E3822B8005B2864 /* SoftU2FToolTests-Bridging-Header.h */,
 				51F090231E37E8C600F03AD3 /* Info.plist */,
+				5131C1AE1E3B9C62006A820C /* IntegrationTests.swift */,
+				51E2145D1E3823E0005B2864 /* SHA256Tests.swift */,
+				51FFC71E1E3FEAA4006275E2 /* SoftU2FTestCase.swift */,
+				51213EC11E3834F8005454E0 /* TestUtil.swift */,
+				51203C381E39234000F661DF /* U2FHIDTests.swift */,
+				51FE30EE1E40F3DB00BAE824 /* U2FRegistrationTests.swift */,
+				51EF60B11E427EE200D429F2 /* UtilsTests.swift */,
+				51E214631E382529005B2864 /* WebSafeBase64Tests.swift */,
 			);
 			path = SoftU2FToolTests;
 			sourceTree = "<group>";
@@ -611,7 +614,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = GitHub;
 				TargetAttributes = {
 					51F0900B1E37E8C600F03AD3 = {
@@ -761,6 +764,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5190B6121E3BFE3D00E6FE06 /* UserPresence.swift in Sources */,
+				90508DE01F130B37003F32E1 /* ChromeNativeMessaging.swift in Sources */,
 				51FE30F11E410B3D00BAE824 /* Utils.swift in Sources */,
 				5119862E1E3C1519006A3BBB /* KnownFacets.swift in Sources */,
 				51F090101E37E8C600F03AD3 /* AppDelegate.swift in Sources */,
@@ -1094,7 +1098,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -1122,7 +1126,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -1179,7 +1183,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -1211,7 +1215,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
