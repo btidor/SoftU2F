@@ -30,6 +30,7 @@
 		51FFC71F1E3FEAA4006275E2 /* SoftU2FTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FFC71E1E3FEAA4006275E2 /* SoftU2FTestCase.swift */; };
 		90508DE01F130B37003F32E1 /* ChromeNativeMessaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90508DDF1F130B37003F32E1 /* ChromeNativeMessaging.swift */; };
 		907B56641F1331CC00CB659D /* ChromeNativeMessagingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907B56631F1331CC00CB659D /* ChromeNativeMessagingTests.swift */; };
+		907B56681F13457400CB659D /* HelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907B56671F13457400CB659D /* HelperProtocol.swift */; };
 		F71A9CC51EA810FA00809745 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F71A9CC41EA810FA00809745 /* MainMenu.xib */; };
 		F738F4F51E4A2CCC005680A2 /* APDU.h in Headers */ = {isa = PBXBuildFile; fileRef = F738F4F31E4A2CCC005680A2 /* APDU.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F738F4F81E4A2CCC005680A2 /* APDU.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F738F4F11E4A2CCB005680A2 /* APDU.framework */; };
@@ -209,6 +210,7 @@
 		51FFC71E1E3FEAA4006275E2 /* SoftU2FTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoftU2FTestCase.swift; sourceTree = "<group>"; };
 		90508DDF1F130B37003F32E1 /* ChromeNativeMessaging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChromeNativeMessaging.swift; sourceTree = "<group>"; };
 		907B56631F1331CC00CB659D /* ChromeNativeMessagingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChromeNativeMessagingTests.swift; sourceTree = "<group>"; };
+		907B56671F13457400CB659D /* HelperProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperProtocol.swift; sourceTree = "<group>"; };
 		F71A9CC41EA810FA00809745 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		F738F4F11E4A2CCB005680A2 /* APDU.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = APDU.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F738F4F31E4A2CCC005680A2 /* APDU.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APDU.h; sourceTree = "<group>"; };
@@ -360,6 +362,7 @@
 				51F090181E37E8C600F03AD3 /* Info.plist */,
 				51F0900F1E37E8C600F03AD3 /* AppDelegate.swift */,
 				90508DDF1F130B37003F32E1 /* ChromeNativeMessaging.swift */,
+				907B56671F13457400CB659D /* HelperProtocol.swift */,
 				514F3D811E43C833008FA513 /* Keychain.swift */,
 				514F3D861E43E828008FA513 /* KeyPair.swift */,
 				5119862D1E3C1519006A3BBB /* KnownFacets.swift */,
@@ -769,6 +772,7 @@
 				5190B6121E3BFE3D00E6FE06 /* UserPresence.swift in Sources */,
 				90508DE01F130B37003F32E1 /* ChromeNativeMessaging.swift in Sources */,
 				51FE30F11E410B3D00BAE824 /* Utils.swift in Sources */,
+				907B56681F13457400CB659D /* HelperProtocol.swift in Sources */,
 				5119862E1E3C1519006A3BBB /* KnownFacets.swift in Sources */,
 				51F090101E37E8C600F03AD3 /* AppDelegate.swift in Sources */,
 				51213EC61E3916EB005454E0 /* U2FHID.swift in Sources */,

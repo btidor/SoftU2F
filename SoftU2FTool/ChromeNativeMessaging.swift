@@ -14,7 +14,7 @@ class ChromeNativeMessaging {
     
     class func receiveMessage() throws -> [String: Any] {
         let len = readInt()
-        if len > MAX_INPUT { throw ChromeNativeMessagingError.InputTooLarge }
+        if len > MAX_INPUT { throw ChromeNativeMessagingError.inputTooLarge }
         let rawMessage = readData(ofLength: Int(len))
         let json = try JSONSerialization.jsonObject(with: rawMessage) as! [String: Any]
         return json
@@ -47,6 +47,6 @@ class ChromeNativeMessaging {
     }
     
     enum ChromeNativeMessagingError: Error {
-        case InputTooLarge
+        case inputTooLarge
     }
 }
