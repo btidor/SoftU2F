@@ -11,7 +11,6 @@ import Foundation
 class EnrollHelperRequest {
     let TYPE = "enroll_helper_request"
     
-    let version: String
     let enrollChallenges: [EnrollChallenge]
     let signChallenges: [SignChallenge]
     
@@ -20,7 +19,6 @@ class EnrollHelperRequest {
             throw SerializationError.typeMismatch
         }
         
-        version = try JSONUtils.string(json, "version")
         enrollChallenges = try JSONUtils.array(json, "enrollChallenges").map {
             try EnrollChallenge($0)
         }
@@ -43,12 +41,12 @@ class EnrollHelperReply {
         self.data = data
     }
     
-    func dump() -> [String: Any] {
+    func dump() -> [String: Any?] {
         return [
-            "type": TYPE,
-            "code": code,
+            "type": TYPE as String,
+            "code": code.rawValue,
             "version": version,
-            "enrollData": data,
+            "enrollData": WebSafeBase64.encode(data),
         ]
     }
 }
@@ -56,7 +54,6 @@ class EnrollHelperReply {
 class SignHelperRequest {
     let TYPE = "sign_helper_request"
     
-    let version: String
     let signChallenges: [SignChallenge]
     
     init(json: [String: Any?]) throws {
@@ -64,7 +61,6 @@ class SignHelperRequest {
             throw SerializationError.typeMismatch
         }
         
-        version = try JSONUtils.string(json, "version")
         signChallenges = try JSONUtils.array(json, "signData").map {
             try SignChallenge($0)
         }
@@ -96,7 +92,7 @@ class SignHelperReply {
     func dump() -> [String: Any?] {
         var json: [String: Any?] = [
             "type": TYPE,
-            "code": code,
+            "code": code.rawValue,
             "errorDetail": error,
             "responseData": nil,
         ]
@@ -104,10 +100,10 @@ class SignHelperReply {
         if data != nil {
             json["responseData"] = [
                 "version": signChallenge!.version,
-                "appIdHash": signChallenge!.applicationParameter,
-                "challengeHash": signChallenge!.challengeParameter,
-                "keyHandle": signChallenge!.keyHandle,
-                "signatureData": data!,
+                "appIdHash": WebSafeBase64.encode(signChallenge!.applicationParameter),
+                "challengeHash": WebSafeBase64.encode(signChallenge!.challengeParameter),
+                "keyHandle": WebSafeBase64.encode(signChallenge!.keyHandle),
+                "signatureData": WebSafeBase64.encode(data!),
             ]
         }
         return json
@@ -153,7 +149,7 @@ enum DeviceStatusCode: Int {
 }
 
 enum SerializationError: Error {
-    case missing(String)
+    case missing(String, from: Any?)
     case invalid(String, Any?)
     case typeMismatch
 }
@@ -161,7 +157,7 @@ enum SerializationError: Error {
 private class JSONUtils {
     static func string(_ json: [String: Any?], _ key: String) throws -> String {
         guard let value = json[key] else {
-            throw SerializationError.missing(key)
+            throw SerializationError.missing(key, from: json)
         }
         guard let typedValue = value as? String else {
             throw SerializationError.invalid(key, value)
@@ -179,7 +175,7 @@ private class JSONUtils {
     
     static func array(_ json: [String: Any?], _ key: String) throws -> [[String: Any?]] {
         guard let value = json[key] else {
-            throw SerializationError.missing(key)
+            throw SerializationError.missing(key, from: json)
         }
         guard let typedValue = value as? [[String: Any]] else {
             throw SerializationError.invalid(key, value)
