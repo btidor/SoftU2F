@@ -7,8 +7,8 @@
 //
 
 import XCTest
-
 @testable import SoftU2FTool
+
 class WebSafeBase64Tests: XCTestCase {
     func testRoundTrip() {
         for length in 0...10 {

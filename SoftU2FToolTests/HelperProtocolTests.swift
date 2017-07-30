@@ -7,8 +7,8 @@
 //
 
 import XCTest
-
 @testable import SoftU2FTool
+
 class HelperProtocolTests: XCTestCase {
     func testDecodeEnrollRequest() throws {
         do {

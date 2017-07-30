@@ -14,22 +14,18 @@
 		51E214641E382529005B2864 /* WebSafeBase64Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E214631E382529005B2864 /* WebSafeBase64Tests.swift */; };
 		51EF60B21E427EE200D429F2 /* UtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EF60B11E427EE200D429F2 /* UtilsTests.swift */; };
 		51F090101E37E8C600F03AD3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F0900F1E37E8C600F03AD3 /* AppDelegate.swift */; };
-		51FE30ED1E403DA000BAE824 /* U2FRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FE30EC1E403DA000BAE824 /* U2FRegistration.swift */; };
+		51FE30ED1E403DA000BAE824 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FE30EC1E403DA000BAE824 /* Token.swift */; };
 		51FE30EF1E40F3DB00BAE824 /* U2FRegistrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FE30EE1E40F3DB00BAE824 /* U2FRegistrationTests.swift */; };
 		51FE30F11E410B3D00BAE824 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FE30F01E410B3D00BAE824 /* Utils.swift */; };
 		51FFC71F1E3FEAA4006275E2 /* SoftU2FTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FFC71E1E3FEAA4006275E2 /* SoftU2FTestCase.swift */; };
 		90508DE01F130B37003F32E1 /* ChromeNativeMessaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90508DDF1F130B37003F32E1 /* ChromeNativeMessaging.swift */; };
 		907B56641F1331CC00CB659D /* ChromeNativeMessagingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907B56631F1331CC00CB659D /* ChromeNativeMessagingTests.swift */; };
 		907B56681F13457400CB659D /* HelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907B56671F13457400CB659D /* HelperProtocol.swift */; };
+		9099947A1F2ED692007BBDDA /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909994791F2ED692007BBDDA /* Constants.swift */; };
 		90C2D32C1F2D9BE30092F520 /* U2FRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C2D32B1F2D9BE30092F520 /* U2FRunner.swift */; };
 		90C2D33C1F2DB01A0092F520 /* TestUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C2D33B1F2DB01A0092F520 /* TestUtil.swift */; };
 		90D9C3051F1AF562009B6E3B /* HelperProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D9C3041F1AF562009B6E3B /* HelperProtocolTests.swift */; };
-		90DF96641F2E99AE0096A0A3 /* AuthenticationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F738F5051E4A2CF6005680A2 /* AuthenticationResponse.swift */; };
-		90DF96651F2E99B20096A0A3 /* RegisterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F738F5081E4A2CF6005680A2 /* RegisterResponse.swift */; };
-		90DF96661F2E99F10096A0A3 /* DataWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F738F5261E4A2E57005680A2 /* DataWriter.swift */; };
-		90DF96671F2E9A120096A0A3 /* Endian.swift in Sources */ = {isa = PBXBuildFile; fileRef = F738F5271E4A2E57005680A2 /* Endian.swift */; };
-		90DF96681F2E9A560096A0A3 /* DataWriterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F738F5861E4A3C09005680A2 /* DataWriterTests.swift */; };
-		90DF96691F2E9A590096A0A3 /* ResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F738F53D1E4A2ED6005680A2 /* ResponseTests.swift */; };
+		90DF96651F2E99B20096A0A3 /* RawMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = F738F5081E4A2CF6005680A2 /* RawMessages.swift */; };
 		F71A9CC51EA810FA00809745 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F71A9CC41EA810FA00809745 /* MainMenu.xib */; };
 		F738F55E1E4A31DE005680A2 /* public.h in Headers */ = {isa = PBXBuildFile; fileRef = F738F55C1E4A31DE005680A2 /* public.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F738F5611E4A31DE005680A2 /* SelfSignedCertificate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F738F55A1E4A31DE005680A2 /* SelfSignedCertificate.framework */; };
@@ -121,22 +117,19 @@
 		51F090181E37E8C600F03AD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		51F0901D1E37E8C600F03AD3 /* SoftU2FToolTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SoftU2FToolTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		51F090231E37E8C600F03AD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		51FE30EC1E403DA000BAE824 /* U2FRegistration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = U2FRegistration.swift; sourceTree = "<group>"; };
+		51FE30EC1E403DA000BAE824 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		51FE30EE1E40F3DB00BAE824 /* U2FRegistrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = U2FRegistrationTests.swift; sourceTree = "<group>"; };
 		51FE30F01E410B3D00BAE824 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		51FFC71E1E3FEAA4006275E2 /* SoftU2FTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoftU2FTestCase.swift; sourceTree = "<group>"; };
 		90508DDF1F130B37003F32E1 /* ChromeNativeMessaging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChromeNativeMessaging.swift; sourceTree = "<group>"; };
 		907B56631F1331CC00CB659D /* ChromeNativeMessagingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChromeNativeMessagingTests.swift; sourceTree = "<group>"; };
 		907B56671F13457400CB659D /* HelperProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperProtocol.swift; sourceTree = "<group>"; };
+		909994791F2ED692007BBDDA /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		90C2D32B1F2D9BE30092F520 /* U2FRunner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = U2FRunner.swift; sourceTree = "<group>"; };
 		90C2D33B1F2DB01A0092F520 /* TestUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtil.swift; sourceTree = "<group>"; };
 		90D9C3041F1AF562009B6E3B /* HelperProtocolTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperProtocolTests.swift; sourceTree = "<group>"; };
 		F71A9CC41EA810FA00809745 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
-		F738F5051E4A2CF6005680A2 /* AuthenticationResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthenticationResponse.swift; path = ../APDU/AuthenticationResponse.swift; sourceTree = "<group>"; };
-		F738F5081E4A2CF6005680A2 /* RegisterResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegisterResponse.swift; path = ../APDU/RegisterResponse.swift; sourceTree = "<group>"; };
-		F738F5261E4A2E57005680A2 /* DataWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataWriter.swift; path = ../APDU/Data/DataWriter.swift; sourceTree = "<group>"; };
-		F738F5271E4A2E57005680A2 /* Endian.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Endian.swift; path = ../APDU/Data/Endian.swift; sourceTree = "<group>"; };
-		F738F53D1E4A2ED6005680A2 /* ResponseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResponseTests.swift; path = ../APDUTests/ResponseTests.swift; sourceTree = "<group>"; };
+		F738F5081E4A2CF6005680A2 /* RawMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RawMessages.swift; path = ../APDU/RawMessages.swift; sourceTree = "<group>"; };
 		F738F55A1E4A31DE005680A2 /* SelfSignedCertificate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SelfSignedCertificate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F738F55C1E4A31DE005680A2 /* public.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = public.h; sourceTree = "<group>"; };
 		F738F55D1E4A31DE005680A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -146,7 +139,6 @@
 		F738F5731E4A3328005680A2 /* SelfSignedCertificateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfSignedCertificateTests.swift; sourceTree = "<group>"; };
 		F738F5751E4A3328005680A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F738F57D1E4A34EE005680A2 /* private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = private.h; sourceTree = "<group>"; };
-		F738F5861E4A3C09005680A2 /* DataWriterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataWriterTests.swift; path = ../APDUTests/DataTests/DataWriterTests.swift; sourceTree = "<group>"; };
 		F7ABD9BD1E80603D00768FEC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -224,15 +216,13 @@
 				5131C19D1E3A77EE006A820C /* SoftU2FTool.entitlements */,
 				51F090181E37E8C600F03AD3 /* Info.plist */,
 				51F0900F1E37E8C600F03AD3 /* AppDelegate.swift */,
-				F738F5051E4A2CF6005680A2 /* AuthenticationResponse.swift */,
 				90508DDF1F130B37003F32E1 /* ChromeNativeMessaging.swift */,
-				F738F5261E4A2E57005680A2 /* DataWriter.swift */,
-				F738F5271E4A2E57005680A2 /* Endian.swift */,
+				909994791F2ED692007BBDDA /* Constants.swift */,
 				907B56671F13457400CB659D /* HelperProtocol.swift */,
 				514F3D811E43C833008FA513 /* Keychain.swift */,
 				514F3D861E43E828008FA513 /* KeyPair.swift */,
-				F738F5081E4A2CF6005680A2 /* RegisterResponse.swift */,
-				51FE30EC1E403DA000BAE824 /* U2FRegistration.swift */,
+				F738F5081E4A2CF6005680A2 /* RawMessages.swift */,
+				51FE30EC1E403DA000BAE824 /* Token.swift */,
 				90C2D32B1F2D9BE30092F520 /* U2FRunner.swift */,
 				51FE30F01E410B3D00BAE824 /* Utils.swift */,
 				51E214611E382521005B2864 /* WebSafeBase64.swift */,
@@ -247,9 +237,7 @@
 			children = (
 				51F090231E37E8C600F03AD3 /* Info.plist */,
 				907B56631F1331CC00CB659D /* ChromeNativeMessagingTests.swift */,
-				F738F5861E4A3C09005680A2 /* DataWriterTests.swift */,
 				90D9C3041F1AF562009B6E3B /* HelperProtocolTests.swift */,
-				F738F53D1E4A2ED6005680A2 /* ResponseTests.swift */,
 				51FFC71E1E3FEAA4006275E2 /* SoftU2FTestCase.swift */,
 				90C2D33B1F2DB01A0092F520 /* TestUtil.swift */,
 				51FE30EE1E40F3DB00BAE824 /* U2FRegistrationTests.swift */,
@@ -500,17 +488,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				90508DE01F130B37003F32E1 /* ChromeNativeMessaging.swift in Sources */,
-				90DF96671F2E9A120096A0A3 /* Endian.swift in Sources */,
-				90DF96651F2E99B20096A0A3 /* RegisterResponse.swift in Sources */,
+				9099947A1F2ED692007BBDDA /* Constants.swift in Sources */,
+				90DF96651F2E99B20096A0A3 /* RawMessages.swift in Sources */,
 				51FE30F11E410B3D00BAE824 /* Utils.swift in Sources */,
 				90C2D32C1F2D9BE30092F520 /* U2FRunner.swift in Sources */,
 				907B56681F13457400CB659D /* HelperProtocol.swift in Sources */,
 				51F090101E37E8C600F03AD3 /* AppDelegate.swift in Sources */,
 				514F3D821E43C833008FA513 /* Keychain.swift in Sources */,
-				51FE30ED1E403DA000BAE824 /* U2FRegistration.swift in Sources */,
+				51FE30ED1E403DA000BAE824 /* Token.swift in Sources */,
 				51E214621E382521005B2864 /* WebSafeBase64.swift in Sources */,
-				90DF96641F2E99AE0096A0A3 /* AuthenticationResponse.swift in Sources */,
-				90DF96661F2E99F10096A0A3 /* DataWriter.swift in Sources */,
 				514F3D871E43E828008FA513 /* KeyPair.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -519,14 +505,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90DF96691F2E9A590096A0A3 /* ResponseTests.swift in Sources */,
 				907B56641F1331CC00CB659D /* ChromeNativeMessagingTests.swift in Sources */,
 				90D9C3051F1AF562009B6E3B /* HelperProtocolTests.swift in Sources */,
 				51E214641E382529005B2864 /* WebSafeBase64Tests.swift in Sources */,
 				90C2D33C1F2DB01A0092F520 /* TestUtil.swift in Sources */,
 				51EF60B21E427EE200D429F2 /* UtilsTests.swift in Sources */,
 				51FFC71F1E3FEAA4006275E2 /* SoftU2FTestCase.swift in Sources */,
-				90DF96681F2E9A560096A0A3 /* DataWriterTests.swift in Sources */,
 				51FE30EF1E40F3DB00BAE824 /* U2FRegistrationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

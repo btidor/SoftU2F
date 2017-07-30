@@ -45,11 +45,3 @@ func unpadKeyHandle(_ kh: Data) -> Data {
 
     return kh.subdata(in: 0..<padIdx)
 }
-
-func handlingKeyChainError<T>(closure: () throws -> T) -> T? {
-    do {
-        return try closure()
-    } catch {
-        return nil
-    }
-}

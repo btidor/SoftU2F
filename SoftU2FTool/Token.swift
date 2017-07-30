@@ -1,5 +1,5 @@
 //
-//  U2FRegistration.swift
+//  Token
 //  SoftU2FTool
 //
 //  Created by Benjamin P Toews on 1/30/17.
@@ -10,7 +10,7 @@ import Foundation
 
 let U2F_APPID_SIZE = 32
 
-class U2FRegistration {
+class Token {
     // Allow using separate keychain namespace for tests.
     static var namespace = "SoftU2F Security Key"
 
@@ -37,7 +37,7 @@ class U2FRegistration {
     init?(applicationParameter ap: Data) {
         applicationParameter = ap
 
-        guard let kp = KeyPair(label: U2FRegistration.namespace) else { return nil }
+        guard let kp = KeyPair(label: Token.namespace) else { return nil }
         keyPair = kp
 
         counter = 1
@@ -47,7 +47,7 @@ class U2FRegistration {
     // Find a registration with the given key handle.
     init?(keyHandle kh: Data, applicationParameter ap: Data) {
         let appLabel = unpadKeyHandle(kh)
-        guard let kp = KeyPair(label: U2FRegistration.namespace, appLabel: appLabel) else { return nil }
+        guard let kp = KeyPair(label: Token.namespace, appLabel: appLabel) else { return nil }
         keyPair = kp
 
         // Read our application parameter from the keychain and make sure it matches.

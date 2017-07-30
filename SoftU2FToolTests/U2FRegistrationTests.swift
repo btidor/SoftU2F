@@ -9,6 +9,8 @@
 import XCTest
 @testable import SoftU2FTool
 
+let U2F_EC_POINT_SIZE = 65
+
 class U2FRegistrationTests: SoftU2FTestCase {
     var makeKey: U2FRegistration? { return U2FRegistration(applicationParameter: randData(length: 32)) }
 
@@ -90,7 +92,7 @@ class U2FRegistrationTests: SoftU2FTestCase {
     func testPublicKeyData() {
         let data = makeKey?.keyPair.publicKeyData
         XCTAssertNotNil(data)
-        XCTAssertEqual(data?.count, MemoryLayout<U2F_EC_POINT>.size)
+        XCTAssertEqual(data?.count, U2F_EC_POINT_SIZE)
     }
 
     func testUniquePublicKeys() {

@@ -13,21 +13,20 @@ import SelfSignedCertificate
 class U2FRunner {
     class func run() {
         do {
-            let request = try ChromeNativeMessaging.receiveMessage()
+            let message = try ChromeNativeMessaging.receiveMessage()
             let reply : [String : Any?]
             
-            let type = try JSONUtils.string(request, "type")
+            let type = try JSONUtils.string(message, "type")
             switch type {
             case "enroll_helper_request":
-                reply = try processEnrollRequest(json: request)
+                reply = try processEnrollRequest(json: message)
             case "sign_helper_request":
-                reply = try processSignRequest(json: request)
+                reply = try processSignRequest(json: message)
             default:
-                throw U2FRunnerError.unknownRequestType(type)
+                throw U2FError.unknownRequestType(type)
             }
             
             try ChromeNativeMessaging.sendMessage(reply)
-            exit(0)
         } catch let err {
             ChromeNativeMessaging.printError("Error: \(err)")
             exit(1)
@@ -36,90 +35,62 @@ class U2FRunner {
     
     class func processEnrollRequest(json: [String: Any]) throws -> [String: Any?] {
         let request = try EnrollHelperRequest.init(json: json)
-        
-        // TODO: de-duplicate keys using signChallenges? check spec
-        var challenge : EnrollChallenge?
-        for c in request.enrollChallenges {
-            if c.version == "U2F_V2" {
-                challenge = c
-                break
+        for challenge in request.enrollChallenges {
+            if challenge.version == U2F_VERSION {
+                return try doEnroll(challenge)
             }
         }
-        guard challenge != nil else {
-            throw U2FRunnerError.noSupportedChallenge
-        }
-        
-        guard let reg = U2FRegistration(applicationParameter: challenge!.applicationParameter) else {
-            throw U2FRunnerError.nullError
+        throw U2FError.noSupportedChallenge
+    }
+    
+    class func doEnroll(_ challenge: EnrollChallenge) throws -> [String: Any?] {
+        guard let reg = Token(applicationParameter: challenge.applicationParameter) else {
+            throw U2FError.nullError
         }
         
         guard let publicKey = reg.keyPair.publicKeyData else {
-            throw U2FRunnerError.nullError
+            throw U2FError.nullError
         }
         
-        let payloadSize = 1 + challenge!.applicationParameter.count + challenge!.challengeParameter.count + reg.keyHandle.count + publicKey.count
-        var sigPayload = Data(capacity: payloadSize)
-        
-        sigPayload.append(UInt8(0x00)) // reserved
-        sigPayload.append(challenge!.applicationParameter)
-        sigPayload.append(challenge!.challengeParameter)
-        sigPayload.append(reg.keyHandle)
-        sigPayload.append(publicKey)
+        let sigPayload = RawMessages.enrollSignData(applicationParameter: challenge.applicationParameter, challengeParameter: challenge.challengeParameter, keyHandle: reg.keyHandle, publicKey: publicKey)
         
         guard let sig = SelfSignedCertificate.sign(sigPayload) else {
-            throw U2FRunnerError.nullError
+            throw U2FError.nullError
         }
         
         
-        let resp = RegisterResponse(publicKey: publicKey, keyHandle: reg.keyHandle, certificate: SelfSignedCertificate.toDer(), signature: sig)
+        let resp = RawMessages.enrollResponse(publicKey: publicKey, keyHandle: reg.keyHandle, certificate: SelfSignedCertificate.toDer(), signature: sig)
         
-        let reply = EnrollHelperReply(code: DeviceStatusCode.OK, version: "U2F_V2", data: resp.body)
+        let reply = EnrollHelperReply(code: DeviceStatusCode.OK, version: U2F_VERSION, data: resp)
         return reply.dump()
     }
     
     class func processSignRequest(json: [String: Any]) throws -> [String: Any?] {
         let request = try SignHelperRequest.init(json: json)
-        
-        var challenge : SignChallenge?
-        var reg : U2FRegistration?
-        for c in request.signChallenges {
-            if c.version == "U2F_V2" {
-                challenge = c
-                reg = U2FRegistration(keyHandle: c.keyHandle, applicationParameter: c.applicationParameter)
-                guard reg != nil else {
-                    continue
+        for challenge in request.signChallenges {
+            if challenge.version == U2F_VERSION {
+                let reg = Token(keyHandle: challenge.keyHandle, applicationParameter: challenge.applicationParameter)
+                if reg != nil {
+                    return try doSign(challenge: challenge, with: reg!)
                 }
-                break
             }
         }
-        guard reg != nil else {
-            throw U2FRunnerError.noSupportedChallenge
-        }
-     
-        let counter = reg!.counter
-        var ctrBigEndian = counter.bigEndian
+        throw U2FError.noSupportedChallenge
+    }
+    
+    class func doSign(challenge: SignChallenge, with token: Token) throws -> [String: Any?] {
+        let counter = token.counter
         
-        let payloadSize = challenge!.applicationParameter.count + 1 + MemoryLayout<UInt32>.size + challenge!.challengeParameter.count
-        var sigPayload = Data(capacity: payloadSize)
+        let sigPayload = RawMessages.signSignData(applicationParameter: challenge.applicationParameter, userPresence: true, counter: counter, challengeParameter: challenge.challengeParameter)
         
-        sigPayload.append(challenge!.applicationParameter)
-        sigPayload.append(UInt8(0x01)) // user present
-        sigPayload.append(Data(bytes: &ctrBigEndian, count: MemoryLayout<UInt32>.size))
-        sigPayload.append(challenge!.challengeParameter)
-        
-        guard let sig = reg!.sign(sigPayload) else {
-            throw U2FRunnerError.nullError
+        guard let sig = token.sign(sigPayload) else {
+            throw U2FError.nullError
         }
         
-        let resp = AuthenticationResponse(userPresence: 0x01, counter: counter, signature: sig)
+        let resp = RawMessages.signResponse(userPresence: true, counter: counter, signature: sig)
         
-        let reply = SignHelperReply.init(signChallenge: challenge!, data: resp.body)
+        let reply = SignHelperReply.init(signChallenge: challenge, data: resp)
         return reply.dump()
     }
     
-    enum U2FRunnerError: Error {
-        case unknownRequestType(String)
-        case noSupportedChallenge // TODO: convert to protocol error?
-        case nullError // TODO: convert return-null functions to throw errors
-    }
 }
