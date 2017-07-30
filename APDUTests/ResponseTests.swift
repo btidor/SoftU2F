@@ -9,6 +9,9 @@
 import XCTest
 import SelfSignedCertificate
 
+let U2F_EC_KEY_SIZE = 32                            // EC key size in bytes
+let U2F_EC_POINT_SIZE = ((U2F_EC_KEY_SIZE * 2) + 1) // Size of EC point
+
 class ResponseTests: XCTestCase {
     func testRegisterResponse() throws {
         let pk = randData(length: U2F_EC_POINT_SIZE)
@@ -32,22 +35,5 @@ class ResponseTests: XCTestCase {
         let res = try RegisterResponse(raw: raw)
 
         XCTAssertEqual(res.raw, raw)
-    }
-
-    func testVersionResponse() throws {
-        let r = VersionResponse(version: "FOOBAR")
-        let r2 = try VersionResponse(raw: r.raw)
-
-        XCTAssertEqual(r.version, r2.version)
-        XCTAssertEqual(r.trailer, r2.trailer)
-        XCTAssertEqual(r.raw, r2.raw)
-    }
-
-    func testErrorResponse() throws {
-        let r = ErrorResponse(status: .ConditionsNotSatisfied)
-        let r2 = try ErrorResponse(raw: r.raw)
-
-        XCTAssertEqual(r.trailer, r2.trailer)
-        XCTAssertEqual(r.raw, r2.raw)
     }
 }

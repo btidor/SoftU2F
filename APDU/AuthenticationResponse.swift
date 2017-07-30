@@ -8,9 +8,8 @@
 
 import Foundation
 
-public struct AuthenticationResponse: RawConvertible {
-    let body: Data
-    let trailer: ResponseStatus
+public struct AuthenticationResponse {
+    public let body: Data
     
     public var userPresence: UInt8 {
         return body[0]
@@ -39,24 +38,6 @@ public struct AuthenticationResponse: RawConvertible {
         writer.writeData(signature)
         
         body = writer.buffer
-        trailer = .NoError
     }
 }
 
-extension AuthenticationResponse: Response {
-    init(body: Data, trailer: ResponseStatus) {
-        self.body = body
-        self.trailer = trailer
-    }
-    
-    func validateBody() throws {
-        // TODO: minimum signature size?
-        if body.count < MemoryLayout<UInt8>.size + MemoryLayout<UInt32>.size + 1 {
-            throw ResponseError.BadSize
-        }
-        
-        if trailer != .NoError {
-            throw ResponseError.BadStatus
-        }
-    }
-}

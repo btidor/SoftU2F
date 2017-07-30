@@ -8,6 +8,8 @@
 
 import Foundation
 
+let U2F_APPID_SIZE = 32
+
 class U2FRegistration {
     // Allow using separate keychain namespace for tests.
     static var namespace = "SoftU2F Security Key"

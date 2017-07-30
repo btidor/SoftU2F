@@ -8,7 +8,6 @@
 
 import Foundation
 
-import APDU
 import SelfSignedCertificate
 
 class U2FRunner {
@@ -71,9 +70,10 @@ class U2FRunner {
             throw U2FRunnerError.nullError
         }
         
+        
         let resp = RegisterResponse(publicKey: publicKey, keyHandle: reg.keyHandle, certificate: SelfSignedCertificate.toDer(), signature: sig)
         
-        let reply = EnrollHelperReply(code: DeviceStatusCode.OK, version: "U2F_V2", data: resp.raw)
+        let reply = EnrollHelperReply(code: DeviceStatusCode.OK, version: "U2F_V2", data: resp.body)
         return reply.dump()
     }
     
@@ -113,7 +113,7 @@ class U2FRunner {
         
         let resp = AuthenticationResponse(userPresence: 0x01, counter: counter, signature: sig)
         
-        let reply = SignHelperReply.init(signChallenge: challenge!, data: resp.raw)
+        let reply = SignHelperReply.init(signChallenge: challenge!, data: resp.body)
         return reply.dump()
     }
     

@@ -23,10 +23,3 @@ func randData(length len: Int) -> Data {
 
     return d
 }
-
-extension u2fh_rc {
-    var name: String {
-        let namePtr = u2fh_strerror_name(rawValue)
-        return String(cString: namePtr!)
-    }
-}

@@ -9,9 +9,11 @@
 import Foundation
 import SelfSignedCertificate
 
-public struct RegisterResponse: RawConvertible {
-    let body: Data
-    let trailer: ResponseStatus
+let U2F_EC_KEY_SIZE = 32                            // EC key size in bytes
+let U2F_EC_POINT_SIZE = ((U2F_EC_KEY_SIZE * 2) + 1) // Size of EC point
+
+public struct RegisterResponse {
+    public let body: Data
 
     var reserved: UInt8 {
         return body.subdata(in: reservedRange)[0]
@@ -95,48 +97,5 @@ public struct RegisterResponse: RawConvertible {
         writer.writeData(signature)
 
         body = writer.buffer
-        trailer = .NoError
-    }
-}
-
-extension RegisterResponse: Response {
-    init(body: Data, trailer: ResponseStatus) {
-        self.body = body
-        self.trailer = trailer
-    }
-    
-    func validateBody() throws {
-        // Check that we at least have key-handle length.
-        var min = MemoryLayout<UInt8>.size + U2F_EC_POINT_SIZE + MemoryLayout<UInt8>.size
-        if body.count < min {
-            throw ResponseError.BadSize
-        }
-
-        // Check that we at least have one byte of cert.
-        // TODO: minimum cert size?
-        min += keyHandleLength + 1
-        if body.count < min {
-            throw ResponseError.BadSize
-        }
-        
-        // Check that cert is parsable.
-        if certificateSize == 0 {
-            throw ResponseError.BadCertificate
-        }
-        
-        // Check that we at least have one byte of signature.
-        // TODO: minimum signature size?
-        min += certificateSize + 1
-        if body.count < min {
-            throw ResponseError.BadSize
-        }
-
-        if reserved != 0x05 {
-            throw ResponseError.BadData
-        }
-        
-        if trailer != .NoError {
-            throw ResponseError.BadStatus
-        }
     }
 }
