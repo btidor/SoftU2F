@@ -11,16 +11,7 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        if !U2FAuthenticator.start() {
-            print("Error starting authenticator")
-        }
-
-    }
-
-    func applicationWillTerminate(_ aNotification: Notification) {
-        if !U2FAuthenticator.stop() {
-            print("Error stopping authenticator")
-        }
+        U2FRunner.run()
     }
     
     func applicationDidBecomeActive(_ notification: Notification) {

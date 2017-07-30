@@ -20,7 +20,7 @@ class ChromeNativeMessaging {
         return json
     }
     
-    class func sendMessage(_ message: [String: Any]) throws {
+    class func sendMessage(_ message: [String: Any?]) throws {
         let rawMessage = try JSONSerialization.data(withJSONObject: message)
         var len = UInt32(rawMessage.count)
         let rawLen = Data(bytes: &len, count: MemoryLayout<UInt32>.size)
@@ -29,7 +29,7 @@ class ChromeNativeMessaging {
         write(rawMessage)
     }
     
-    class func printEror(_ message: Any) {
+    class func printError(_ message: Any) {
         FileHandle.standardError.write("\(message)\n".data(using: .utf8)!)
     }
     

@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Types for speaking the U2F Helper Protocol with Chrome
 class EnrollHelperRequest {
     let TYPE = "enroll_helper_request"
     
@@ -154,7 +155,7 @@ enum SerializationError: Error {
     case typeMismatch
 }
 
-private class JSONUtils {
+class JSONUtils {
     static func string(_ json: [String: Any?], _ key: String) throws -> String {
         guard let value = json[key] else {
             throw SerializationError.missing(key, from: json)
