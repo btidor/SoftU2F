@@ -11,6 +11,11 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        if let _ = NSClassFromString("XCTest") {
+            // HACK: skip execution when being tested, since reading from stdin
+            // hangs the test suite
+            return
+        }
         U2FRunner.run()
     }
     

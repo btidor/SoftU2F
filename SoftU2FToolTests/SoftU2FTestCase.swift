@@ -10,19 +10,19 @@ import XCTest
 @testable import SoftU2FTool
 
 class SoftU2FTestCase: XCTestCase {
-    static var nameSpaceWas = U2FRegistration.namespace
+    static var nameSpaceWas = Token.namespace
 
     override static func setUp() {
         // Use separate namespace for keychain entries.
-        U2FRegistration.namespace = "SoftU2F Tests"
+        Token.namespace = "SoftU2F Tests"
 
         // Clear any lingering keychain entries.
-        let _ = U2FRegistration.deleteAll()
+        let _ = Token.deleteAll()
 
         super.setUp()
     }
 
     override static func tearDown() {
-        U2FRegistration.namespace = nameSpaceWas
+        Token.namespace = nameSpaceWas
     }
 }

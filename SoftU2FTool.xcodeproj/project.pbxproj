@@ -14,7 +14,6 @@
 		51EF60B21E427EE200D429F2 /* UtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EF60B11E427EE200D429F2 /* UtilsTests.swift */; };
 		51F090101E37E8C600F03AD3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F0900F1E37E8C600F03AD3 /* AppDelegate.swift */; };
 		51FE30ED1E403DA000BAE824 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FE30EC1E403DA000BAE824 /* Token.swift */; };
-		51FE30EF1E40F3DB00BAE824 /* U2FRegistrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FE30EE1E40F3DB00BAE824 /* U2FRegistrationTests.swift */; };
 		51FE30F11E410B3D00BAE824 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FE30F01E410B3D00BAE824 /* Utils.swift */; };
 		51FFC71F1E3FEAA4006275E2 /* SoftU2FTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FFC71E1E3FEAA4006275E2 /* SoftU2FTestCase.swift */; };
 		90508DE01F130B37003F32E1 /* ChromeNativeMessaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90508DDF1F130B37003F32E1 /* ChromeNativeMessaging.swift */; };
@@ -88,7 +87,6 @@
 		51F0901D1E37E8C600F03AD3 /* SoftU2FToolTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SoftU2FToolTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		51F090231E37E8C600F03AD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		51FE30EC1E403DA000BAE824 /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
-		51FE30EE1E40F3DB00BAE824 /* U2FRegistrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = U2FRegistrationTests.swift; sourceTree = "<group>"; };
 		51FE30F01E410B3D00BAE824 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		51FFC71E1E3FEAA4006275E2 /* SoftU2FTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoftU2FTestCase.swift; sourceTree = "<group>"; };
 		90508DDF1F130B37003F32E1 /* ChromeNativeMessaging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChromeNativeMessaging.swift; sourceTree = "<group>"; };
@@ -198,7 +196,6 @@
 				90D9C3041F1AF562009B6E3B /* HelperProtocolTests.swift */,
 				51FFC71E1E3FEAA4006275E2 /* SoftU2FTestCase.swift */,
 				90C2D33B1F2DB01A0092F520 /* TestUtil.swift */,
-				51FE30EE1E40F3DB00BAE824 /* U2FRegistrationTests.swift */,
 				51EF60B11E427EE200D429F2 /* UtilsTests.swift */,
 				51E214631E382529005B2864 /* WebSafeBase64Tests.swift */,
 			);
@@ -438,7 +435,6 @@
 				90C2D33C1F2DB01A0092F520 /* TestUtil.swift in Sources */,
 				51EF60B21E427EE200D429F2 /* UtilsTests.swift in Sources */,
 				51FFC71F1E3FEAA4006275E2 /* SoftU2FTestCase.swift in Sources */,
-				51FE30EF1E40F3DB00BAE824 /* U2FRegistrationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
