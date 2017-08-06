@@ -166,6 +166,16 @@ class JSONUtils {
         return typedValue
     }
     
+    static func int(_ json: [String: Any?], _ key: String) throws -> Int {
+        guard let value = json[key] else {
+            throw SerializationError.missing(key, from: json)
+        }
+        guard let typedValue = value as? Int else {
+            throw SerializationError.invalid(key, value)
+        }
+        return typedValue
+    }
+    
     static func webSafeBase64(_ json: [String: Any?], _ key: String) throws -> Data {
         let stringValue = try string(json, key)
         guard let decodedValue = WebSafeBase64.decode(stringValue) else {
