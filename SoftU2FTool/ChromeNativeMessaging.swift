@@ -2,16 +2,21 @@
 //  ChromeNativeMessaging.swift
 //  U2FTouchID
 //
-//  Created by btidor on 7/9/17.
-//  Copyright © 2017 Stripe. All rights reserved.
-//
 
 import Foundation
 
-/// Helpers for acting as a native application in Chrome's Native Messaging protocol
+/// Helpers for acting as a native application in Chrome's Native Messaging
+/// protocol.
 class ChromeNativeMessaging {
-    static var MAX_INPUT: UInt32 = 1024 * 1024 // 1 MB
     
+    /// Maximum input size. Set to 1 MB to avoid excessive resource usage.
+    static var MAX_INPUT: UInt32 = 1024 * 1024
+    
+    /**
+     Reads a length-prefixed JSON message from `stdin`.
+    
+     - Returns: The message as a parsed JSON object.
+    */
     class func receiveMessage() throws -> [String: Any] {
         let len = readInt()
         if len > MAX_INPUT { throw ChromeNativeMessagingError.inputTooLarge }
@@ -20,6 +25,11 @@ class ChromeNativeMessaging {
         return json
     }
     
+    /**
+     Writes a length-prefixed JSON message to `stdout`.
+ 
+     - Parameter message: The object to write.
+    */
     class func sendMessage(_ message: [String: Any?]) throws {
         let rawMessage = try JSONSerialization.data(withJSONObject: message)
         var len = UInt32(rawMessage.count)
@@ -29,6 +39,12 @@ class ChromeNativeMessaging {
         write(rawMessage)
     }
     
+    /**
+     Formats and prints an unstructured message to `stderr`. Messages will be
+     transferred to Chrome's command-line output.
+ 
+     - Parameter message: The message to print.
+    */
     class func printError(_ message: Any) {
         FileHandle.standardError.write("\(message)\n".data(using: .utf8)!)
     }

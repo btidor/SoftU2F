@@ -1,9 +1,6 @@
 //
 //  HelperProtocolTests.swift
-//  TouchIDU2F
-//
-//  Created by btidor on 7/15/17.
-//  Copyright © 2017 Stripe. All rights reserved.
+//  U2FTouchID
 //
 
 import XCTest
@@ -21,14 +18,14 @@ class HelperProtocolTests: XCTestCase {
                            WebSafeBase64.encode(request.enrollChallenges[0].applicationParameter))
             XCTAssertEqual("CrUWUr1zhJ7vHADve0zFRP4dj_6m1d8yavzpYnskaWc",
                            WebSafeBase64.encode(request.enrollChallenges[0].challengeParameter))
-        } catch let err as SerializationError {
+        } catch let err as JSONUtils.SerializationError {
             dump(err)
             throw err
         }
     }
     
     func testEncodeEnrollReply() throws {
-        let reply = EnrollHelperReply(code: DeviceStatusCode.OK, version: "U2F_V2", data: "TEST".data(using: .utf8)!)
+        let reply = EnrollHelperReply(status: .OK, version: "U2F_V2", data: "TEST".data(using: .utf8)!)
         let string = String(data: try JSONSerialization.data(withJSONObject: reply.dump()), encoding: .utf8)!
         XCTAssertNotNil(string.range(of: "\"version\":\"U2F_V2\""))
         XCTAssertNotNil(string.range(of: "\"enrollData\":\"VEVTVA\""))
@@ -49,14 +46,14 @@ class HelperProtocolTests: XCTestCase {
                            WebSafeBase64.encode(request.signChallenges[0].applicationParameter))
             XCTAssertEqual("lZuoMIhpsC-T7ZTd-kdqG55zdUYnxWeqkwUnUrabmLI8GA-2fTniAGlX993b7nq5qgCp6nuzazTPtV5D-wAXow",
                            WebSafeBase64.encode(request.signChallenges[0].keyHandle))
-        } catch let err as SerializationError {
+        } catch let err as JSONUtils.SerializationError {
             dump(err)
             throw err
         }
     }
     
     func testEncodeSignReplyError() throws {
-        let reply = SignHelperReply(code: DeviceStatusCode.BUSY, error: "TEST")
+        let reply = SignHelperReply(status: .BUSY, error: "TEST")
         let string = String(data: try JSONSerialization.data(withJSONObject: reply.dump()), encoding: .utf8)!
         XCTAssertNotNil(string.range(of: "\"responseData\":null"))
         XCTAssertNotNil(string.range(of: "\"errorDetail\":\"TEST\""))

@@ -2,140 +2,24 @@
 //  HelperProtocol.swift
 //  U2FTouchID
 //
-//  Created by btidor on 7/9/17.
-//  Copyright © 2017 Stripe. All rights reserved.
-//
 
 import Foundation
 
-/// Types for speaking the U2F Helper Protocol with Chrome
-class EnrollHelperRequest {
-    let TYPE = "enroll_helper_request"
-    
-    let enrollChallenges: [EnrollChallenge]
-    let signChallenges: [SignChallenge]
-    
-    init(json: [String: Any?]) throws {
-        guard try JSONUtils.string(json, "type") == TYPE else {
-            throw SerializationError.typeMismatch
-        }
-        
-        enrollChallenges = try JSONUtils.array(json, "enrollChallenges").map {
-            try EnrollChallenge($0)
-        }
-        signChallenges = try JSONUtils.array(json, "signData").map {
-            try SignChallenge($0)
-        }
-    }
-}
+// JSON parameter names
+let PARAM_CODE              = "code"
+let PARAM_ERROR_DETAIL      = "errorDetail"
+let PARAM_TYPE              = "type"
+let PARAM_VERSION           = "version"
 
-class EnrollHelperReply {
-    let TYPE = "enroll_helper_reply"
-    
-    let code: DeviceStatusCode
-    let version: String
-    let data: Data
-    
-    init(code: DeviceStatusCode, version: String, data: Data) {
-        self.code = code
-        self.version = version
-        self.data = data
-    }
-    
-    func dump() -> [String: Any?] {
-        return [
-            "type": TYPE as String,
-            "code": code.rawValue,
-            "version": version,
-            "enrollData": WebSafeBase64.encode(data),
-        ]
-    }
-}
+let PARAM_ENROLL_CHALLENGES = "enrollChallenges"
+let PARAM_ENROLL_DATA       = "enrollData"
+let PARAM_RESPONSE_DATA     = "responseData"
+let PARAM_SIGN_DATA         = "signData"
 
-class SignHelperRequest {
-    let TYPE = "sign_helper_request"
-    
-    let signChallenges: [SignChallenge]
-    
-    init(json: [String: Any?]) throws {
-        guard try JSONUtils.string(json, "type") == TYPE else {
-            throw SerializationError.typeMismatch
-        }
-        
-        signChallenges = try JSONUtils.array(json, "signData").map {
-            try SignChallenge($0)
-        }
-    }
-}
-
-class SignHelperReply {
-    let TYPE = "sign_helper_reply"
-    
-    let code: DeviceStatusCode
-    let error: String?
-    let signChallenge: SignChallenge?
-    let data: Data?
-    
-    init(signChallenge: SignChallenge, data: Data) {
-        self.code = DeviceStatusCode.OK
-        self.error = nil
-        self.signChallenge = signChallenge
-        self.data = data
-    }
-    
-    init(code: DeviceStatusCode, error: String) {
-        self.code = code
-        self.error = error
-        self.signChallenge = nil
-        self.data = nil
-    }
-    
-    func dump() -> [String: Any?] {
-        var json: [String: Any?] = [
-            "type": TYPE,
-            "code": code.rawValue,
-            "errorDetail": error,
-            "responseData": nil,
-        ]
-        
-        if data != nil {
-            json["responseData"] = [
-                "version": signChallenge!.version,
-                "appIdHash": WebSafeBase64.encode(signChallenge!.applicationParameter),
-                "challengeHash": WebSafeBase64.encode(signChallenge!.challengeParameter),
-                "keyHandle": WebSafeBase64.encode(signChallenge!.keyHandle),
-                "signatureData": WebSafeBase64.encode(data!),
-            ]
-        }
-        return json
-    }
-}
-
-class EnrollChallenge {
-    let version: String
-    let challengeParameter: Data
-    let applicationParameter: Data
-    
-    init(_ json: [String: Any?]) throws {
-        version = try JSONUtils.string(json, "version")
-        challengeParameter = try JSONUtils.webSafeBase64(json, "challengeHash")
-        applicationParameter = try JSONUtils.webSafeBase64(json, "appIdHash")
-    }
-}
-
-class SignChallenge {
-    let version: String
-    let challengeParameter: Data
-    let applicationParameter: Data
-    let keyHandle: Data
-    
-    init(_ json: [String: Any?]) throws {
-        version = try JSONUtils.string(json, "version")
-        challengeParameter = try JSONUtils.webSafeBase64(json, "challengeHash")
-        applicationParameter = try JSONUtils.webSafeBase64(json, "appIdHash")
-        keyHandle = try JSONUtils.webSafeBase64(json, "keyHandle")
-    }
-}
+let PARAM_APP_ID_HASH       = "appIdHash"
+let PARAM_CHALLENGE_HASH    = "challengeHash"
+let PARAM_KEY_HANDLE        = "keyHandle"
+let PARAM_SIGNATURE_DATA    = "signatureData"
 
 enum DeviceStatusCode: Int {
     // From devicestatuscodes.js
@@ -149,48 +33,138 @@ enum DeviceStatusCode: Int {
     case GONE = -8
 }
 
-enum SerializationError: Error {
-    case missing(String, from: Any?)
-    case invalid(String, Any?)
-    case typeMismatch
+
+/// An `enroll_helper_request` in the Chrome U2F helper protocol.
+class EnrollHelperRequest {
+    let TYPE = "enroll_helper_request"
+    
+    let enrollChallenges: [EnrollChallenge]
+    let signChallenges: [SignChallenge]
+    
+    init(json: [String: Any?]) throws {
+        guard try JSONUtils.string(json, PARAM_TYPE) == TYPE else {
+            throw U2FError.incorrectType
+        }
+        
+        enrollChallenges = try JSONUtils.array(json, PARAM_ENROLL_CHALLENGES).map {
+            try EnrollChallenge($0)
+        }
+        signChallenges = try JSONUtils.array(json, PARAM_SIGN_DATA).map {
+            try SignChallenge($0)
+        }
+    }
 }
 
-class JSONUtils {
-    static func string(_ json: [String: Any?], _ key: String) throws -> String {
-        guard let value = json[key] else {
-            throw SerializationError.missing(key, from: json)
-        }
-        guard let typedValue = value as? String else {
-            throw SerializationError.invalid(key, value)
-        }
-        return typedValue
+/// An `enroll_helper_reply` in the Chrome U2F helper protocol.
+class EnrollHelperReply {
+    let TYPE = "enroll_helper_reply"
+    
+    let status: DeviceStatusCode
+    let version: String
+    let data: Data
+    
+    init(status: DeviceStatusCode, version: String, data: Data) {
+        self.status = status
+        self.version = version
+        self.data = data
     }
     
-    static func int(_ json: [String: Any?], _ key: String) throws -> Int {
-        guard let value = json[key] else {
-            throw SerializationError.missing(key, from: json)
-        }
-        guard let typedValue = value as? Int else {
-            throw SerializationError.invalid(key, value)
-        }
-        return typedValue
-    }
-    
-    static func webSafeBase64(_ json: [String: Any?], _ key: String) throws -> Data {
-        let stringValue = try string(json, key)
-        guard let decodedValue = WebSafeBase64.decode(stringValue) else {
-            throw SerializationError.invalid(key, stringValue)
-        }
-        return decodedValue
-    }
-    
-    static func array(_ json: [String: Any?], _ key: String) throws -> [[String: Any?]] {
-        guard let value = json[key] else {
-            throw SerializationError.missing(key, from: json)
-        }
-        guard let typedValue = value as? [[String: Any]] else {
-            throw SerializationError.invalid(key, value)
-        }
-        return typedValue
+    func dump() -> [String: Any?] {
+        return [
+            PARAM_TYPE:         TYPE as String,
+            PARAM_CODE:         status.rawValue,
+            PARAM_VERSION:      version,
+            PARAM_ENROLL_DATA:  WebSafeBase64.encode(data),
+        ]
     }
 }
+
+/// A `sign_helper_request` in the Chrome U2F helper protocol.
+class SignHelperRequest {
+    let TYPE = "sign_helper_request"
+    
+    let signChallenges: [SignChallenge]
+    
+    init(json: [String: Any?]) throws {
+        guard try JSONUtils.string(json, PARAM_TYPE) == TYPE else {
+            throw U2FError.incorrectType
+        }
+        
+        signChallenges = try JSONUtils.array(json, PARAM_SIGN_DATA).map {
+            try SignChallenge($0)
+        }
+    }
+}
+
+/// A `sign_helper_reply` in the Chrome U2F helper protocol.
+class SignHelperReply {
+    let TYPE = "sign_helper_reply"
+    
+    let status: DeviceStatusCode
+    let error: String?
+    let signChallenge: SignChallenge?
+    let data: Data?
+    
+    init(signChallenge: SignChallenge, data: Data) {
+        self.status = .OK
+        self.error = nil
+        self.signChallenge = signChallenge
+        self.data = data
+    }
+    
+    init(status: DeviceStatusCode, error: String) {
+        self.status = status
+        self.error = error
+        self.signChallenge = nil
+        self.data = nil
+    }
+    
+    func dump() -> [String: Any?] {
+        var json: [String: Any?] = [
+            PARAM_TYPE:             TYPE,
+            PARAM_CODE:             status.rawValue,
+            PARAM_ERROR_DETAIL:     error,
+            PARAM_RESPONSE_DATA:    nil,
+        ]
+        
+        if data != nil {
+            json[PARAM_RESPONSE_DATA] = [
+                PARAM_VERSION:          signChallenge!.version,
+                PARAM_APP_ID_HASH:      WebSafeBase64.encode(signChallenge!.applicationParameter),
+                PARAM_CHALLENGE_HASH:   WebSafeBase64.encode(signChallenge!.challengeParameter),
+                PARAM_KEY_HANDLE:       WebSafeBase64.encode(signChallenge!.keyHandle),
+                PARAM_SIGNATURE_DATA:   WebSafeBase64.encode(data!),
+            ]
+        }
+        return json
+    }
+}
+
+/// An `enrollChallenge` in the Chrome U2F helper protocol.
+class EnrollChallenge {
+    let version: String
+    let challengeParameter: Data
+    let applicationParameter: Data
+    
+    init(_ json: [String: Any?]) throws {
+        version = try JSONUtils.string(json, PARAM_VERSION)
+        challengeParameter = try JSONUtils.webSafeBase64(json, PARAM_CHALLENGE_HASH)
+        applicationParameter = try JSONUtils.webSafeBase64(json, PARAM_APP_ID_HASH)
+    }
+}
+
+/// A `signChallenge` in the Chrome U2F helper protocol.
+class SignChallenge {
+    let version: String
+    let challengeParameter: Data
+    let applicationParameter: Data
+    let keyHandle: Data
+    
+    init(_ json: [String: Any?]) throws {
+        version = try JSONUtils.string(json, PARAM_VERSION)
+        challengeParameter = try JSONUtils.webSafeBase64(json, PARAM_CHALLENGE_HASH)
+        applicationParameter = try JSONUtils.webSafeBase64(json, PARAM_APP_ID_HASH)
+        keyHandle = try JSONUtils.webSafeBase64(json, PARAM_KEY_HANDLE)
+    }
+}
+

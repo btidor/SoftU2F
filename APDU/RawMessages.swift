@@ -2,14 +2,15 @@
 //  RawMessages.swift
 //  U2FTouchID
 //
-//  Created by btidor on 7/30/17.
-//  Copyright © 2017 Stripe. All rights reserved.
-//
 
 import Foundation
 
+/// Helpers for constructing the packed binary messages used in the U2F
+/// protocol. See "FIDO U2F Raw Message Formats", 11 April 2017.
 class RawMessages {
-    class func enrollResponse(publicKey: Data, keyHandle: Data, certificate: Data, signature: Data) -> Data {
+    
+    /// 4.3 - Registration Response Message: Success
+    static func registrationResponse(publicKey: Data, keyHandle: Data, certificate: Data, signature: Data) -> Data {
         var data = Data()
         data.append(UInt8(0x05)) // reserved
         data.append(publicKey)
@@ -20,7 +21,8 @@ class RawMessages {
         return data
     }
     
-    class func enrollSignData(applicationParameter: Data, challengeParameter: Data, keyHandle: Data, publicKey: Data) -> Data {
+    /// 4.3 - data under signature in Registration Response Message: Success
+    static func registrationDataToSign(applicationParameter: Data, challengeParameter: Data, keyHandle: Data, publicKey: Data) -> Data {
         var data = Data()
         data.append(UInt8(0x00)) // reserved
         data.append(applicationParameter)
@@ -30,7 +32,8 @@ class RawMessages {
         return data
     }
     
-    class func signResponse(userPresence: Bool, counter: UInt32, signature: Data) -> Data {
+    /// 5.4 - Authentication Response Message: Success
+    static func authenticationResponse(userPresence: Bool, counter: UInt32, signature: Data) -> Data {
         var data = Data()
         var counterBigEndian = counter.bigEndian
         data.append(UInt8(userPresence ? 0x01 : 0x00))
@@ -39,7 +42,8 @@ class RawMessages {
         return data
     }
     
-    class func signSignData(applicationParameter: Data, userPresence: Bool, counter: UInt32, challengeParameter: Data) -> Data {
+    /// 5.4 - data under signature in Authentication Response Message: Success
+    static func authenticationDataToSign(applicationParameter: Data, userPresence: Bool, counter: UInt32, challengeParameter: Data) -> Data {
         var data = Data()
         var counterBigEndian = counter.bigEndian
         data.append(applicationParameter)

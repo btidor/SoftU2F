@@ -20,6 +20,7 @@
 		90C2D32C1F2D9BE30092F520 /* U2FRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C2D32B1F2D9BE30092F520 /* U2FRunner.swift */; };
 		90C2D33C1F2DB01A0092F520 /* TestUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C2D33B1F2DB01A0092F520 /* TestUtil.swift */; };
 		90C68BD11F366A35007A04DE /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C68BD01F366A35007A04DE /* Keychain.swift */; };
+		90D853011F37DBF8001B5B40 /* JSONUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D853001F37DBF8001B5B40 /* JSONUtils.swift */; };
 		90D9C3051F1AF562009B6E3B /* HelperProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D9C3041F1AF562009B6E3B /* HelperProtocolTests.swift */; };
 		90DF96651F2E99B20096A0A3 /* RawMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = F738F5081E4A2CF6005680A2 /* RawMessages.swift */; };
 		F71A9CC51EA810FA00809745 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F71A9CC41EA810FA00809745 /* MainMenu.xib */; };
@@ -91,6 +92,7 @@
 		90C2D32B1F2D9BE30092F520 /* U2FRunner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = U2FRunner.swift; sourceTree = "<group>"; };
 		90C2D33B1F2DB01A0092F520 /* TestUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtil.swift; sourceTree = "<group>"; };
 		90C68BD01F366A35007A04DE /* Keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
+		90D853001F37DBF8001B5B40 /* JSONUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONUtils.swift; sourceTree = "<group>"; };
 		90D9C3041F1AF562009B6E3B /* HelperProtocolTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperProtocolTests.swift; sourceTree = "<group>"; };
 		F71A9CC41EA810FA00809745 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		F738F5081E4A2CF6005680A2 /* RawMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RawMessages.swift; path = ../APDU/RawMessages.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				90508DDF1F130B37003F32E1 /* ChromeNativeMessaging.swift */,
 				909994791F2ED692007BBDDA /* Constants.swift */,
 				907B56671F13457400CB659D /* HelperProtocol.swift */,
+				90D853001F37DBF8001B5B40 /* JSONUtils.swift */,
 				90C68BD01F366A35007A04DE /* Keychain.swift */,
 				F738F5081E4A2CF6005680A2 /* RawMessages.swift */,
 				90C2D32B1F2D9BE30092F520 /* U2FRunner.swift */,
@@ -412,6 +415,7 @@
 				90C2D32C1F2D9BE30092F520 /* U2FRunner.swift in Sources */,
 				90C68BD11F366A35007A04DE /* Keychain.swift in Sources */,
 				907B56681F13457400CB659D /* HelperProtocol.swift in Sources */,
+				90D853011F37DBF8001B5B40 /* JSONUtils.swift in Sources */,
 				51F090101E37E8C600F03AD3 /* AppDelegate.swift in Sources */,
 				51E214621E382521005B2864 /* WebSafeBase64.swift in Sources */,
 			);

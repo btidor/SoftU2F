@@ -2,9 +2,6 @@
 //  ChromeNativeMessagingTests.swift
 //  U2FTouchID
 //
-//  Created by btidor on 7/9/17.
-//  Copyright © 2017 Stripe. All rights reserved.
-//
 
 import XCTest
 

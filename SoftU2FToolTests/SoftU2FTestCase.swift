@@ -1,14 +1,11 @@
 //
 //  SoftU2FTestCase.swift
-//  SoftU2FTool
-//
-//  Created by Benjamin P Toews on 1/30/17.
-//  Copyright © 2017 GitHub. All rights reserved.
+//  U2FTouchID
 //
 
 import XCTest
 @testable import SoftU2FTool
-
+/*
 class SoftU2FTestCase: XCTestCase {
     static var nameSpaceWas = Token.namespace
 
@@ -26,3 +23,4 @@ class SoftU2FTestCase: XCTestCase {
         Token.namespace = nameSpaceWas
     }
 }
+*/

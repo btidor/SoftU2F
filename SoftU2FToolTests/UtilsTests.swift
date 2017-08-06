@@ -1,9 +1,6 @@
 //
 //  UtilsTests.swift
-//  SoftU2FTool
-//
-//  Created by Benjamin P Toews on 2/1/17.
-//  Copyright © 2017 GitHub. All rights reserved.
+//  U2FTouchID
 //
 
 import XCTest

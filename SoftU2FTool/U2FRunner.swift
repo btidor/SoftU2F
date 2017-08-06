@@ -2,16 +2,13 @@
 //  U2FRunner.swift
 //  U2FTouchID
 //
-//  Created by btidor on 7/29/17.
-//  Copyright © 2017 Stripe. All rights reserved.
-//
 
 import Foundation
 
 import SelfSignedCertificate
 
 class U2FRunner {
-    class func run() {
+    static func run() {
         do {
             let message = try ChromeNativeMessaging.receiveMessage()
             let reply : [String : Any?]
@@ -33,7 +30,7 @@ class U2FRunner {
         }
     }
     
-    class func processEnrollRequest(json: [String: Any]) throws -> [String: Any?] {
+    static func processEnrollRequest(json: [String: Any]) throws -> [String: Any?] {
         let request = try EnrollHelperRequest.init(json: json)
         for challenge in request.enrollChallenges {
             if challenge.version == U2F_VERSION {
@@ -43,23 +40,23 @@ class U2FRunner {
         throw U2FError.noSupportedChallenge
     }
     
-    class func doEnroll(_ challenge: EnrollChallenge) throws -> [String: Any?] {
+    static func doEnroll(_ challenge: EnrollChallenge) throws -> [String: Any?] {
         let metadata = try U2FRunner.generateMetadata(counter: 0, applicationParameter: challenge.applicationParameter)
         let privateKey = try Keychain.generatePrivateKey(metadata: metadata)
         let publicKey = try Keychain.exportPublicKey(from: privateKey)
         let keyFingerprint = try Keychain.getKeyFingerprint(privateKey: privateKey)
         let keyHandle = padKeyHandle(keyFingerprint)
         
-        let sigPayload = RawMessages.enrollSignData(applicationParameter: challenge.applicationParameter, challengeParameter: challenge.challengeParameter, keyHandle: keyHandle, publicKey: publicKey)
+        let sigPayload = RawMessages.registrationDataToSign(applicationParameter: challenge.applicationParameter, challengeParameter: challenge.challengeParameter, keyHandle: keyHandle, publicKey: publicKey)
         guard let sig = SelfSignedCertificate.sign(sigPayload) else {
             throw U2FError.nilError
         }
-        let resp = RawMessages.enrollResponse(publicKey: publicKey, keyHandle: keyHandle, certificate: SelfSignedCertificate.toDer(), signature: sig)
-        let reply = EnrollHelperReply(code: DeviceStatusCode.OK, version: U2F_VERSION, data: resp)
+        let resp = RawMessages.registrationResponse(publicKey: publicKey, keyHandle: keyHandle, certificate: SelfSignedCertificate.toDer(), signature: sig)
+        let reply = EnrollHelperReply(status: .OK, version: U2F_VERSION, data: resp)
         return reply.dump()
     }
     
-    class func processSignRequest(json: [String: Any]) throws -> [String: Any?] {
+    static func processSignRequest(json: [String: Any]) throws -> [String: Any?] {
         let request = try SignHelperRequest.init(json: json)
         for challenge in request.signChallenges {
             if challenge.version == U2F_VERSION {
@@ -75,7 +72,7 @@ class U2FRunner {
         throw U2FError.noSupportedChallenge
     }
     
-    class func doSign(challenge: SignChallenge, privateKey: SecKey) throws -> [String: Any?] {
+    static func doSign(challenge: SignChallenge, privateKey: SecKey) throws -> [String: Any?] {
         let keyFingerprint = unpadKeyHandle(challenge.keyHandle)
         let metadata = try Keychain.getKeyMetadata(keyFingerprint: keyFingerprint)
         let (originalCounter, originalApplicationParameter) = try U2FRunner.getCounterAndApplicationParameter(metadata: metadata)
@@ -86,11 +83,17 @@ class U2FRunner {
             throw U2FError.keyNotFound
         }
         
-        let sigPayload = RawMessages.signSignData(applicationParameter: challenge.applicationParameter, userPresence: true, counter: UInt32(originalCounter), challengeParameter: challenge.challengeParameter)
-        let sig = try Keychain.sign(data: sigPayload, with: privateKey)
-        let resp = RawMessages.signResponse(userPresence: true, counter: originalCounter, signature: sig)
-        let reply = SignHelperReply.init(signChallenge: challenge, data: resp)
-        return reply.dump()
+        let sigPayload = RawMessages.authenticationDataToSign(applicationParameter: challenge.applicationParameter, userPresence: true, counter: UInt32(originalCounter), challengeParameter: challenge.challengeParameter)
+
+        do {
+            let sig = try Keychain.sign(data: sigPayload, with: privateKey)
+            let resp = RawMessages.authenticationResponse(userPresence: true, counter: originalCounter, signature: sig)
+            let reply = SignHelperReply.init(signChallenge: challenge, data: resp)
+            return reply.dump()
+        } catch U2FError.userCanceled {
+            let reply = SignHelperReply.init(status: .WAIT_TOUCH, error: "User canceled")
+            return reply.dump()
+        }
     }
 
     static func generateMetadata(counter: UInt32, applicationParameter: Data) throws -> Data {
