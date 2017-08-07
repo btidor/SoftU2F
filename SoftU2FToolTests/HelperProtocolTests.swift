@@ -18,7 +18,7 @@ class HelperProtocolTests: XCTestCase {
                            WebSafeBase64.encode(request.enrollChallenges[0].applicationParameter))
             XCTAssertEqual("CrUWUr1zhJ7vHADve0zFRP4dj_6m1d8yavzpYnskaWc",
                            WebSafeBase64.encode(request.enrollChallenges[0].challengeParameter))
-        } catch let err as JSONUtils.SerializationError {
+        } catch let err as SerializationError {
             dump(err)
             throw err
         }
@@ -46,7 +46,7 @@ class HelperProtocolTests: XCTestCase {
                            WebSafeBase64.encode(request.signChallenges[0].applicationParameter))
             XCTAssertEqual("lZuoMIhpsC-T7ZTd-kdqG55zdUYnxWeqkwUnUrabmLI8GA-2fTniAGlX993b7nq5qgCp6nuzazTPtV5D-wAXow",
                            WebSafeBase64.encode(request.signChallenges[0].keyHandle))
-        } catch let err as JSONUtils.SerializationError {
+        } catch let err as SerializationError {
             dump(err)
             throw err
         }

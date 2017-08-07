@@ -1,12 +1,17 @@
 //
-//  JSONUtils.swift
+//  JSONKey.swift
 //  SoftU2FTool
 //
 
 import Foundation
 
-/// Helpers for parsing JSON objects. 
-class JSONUtils {
+enum SerializationError: Error {
+    case missing(String, from: Any?)
+    case invalid(String, Any?)
+}
+
+/// Helpers for parsing typed values out of JSON objects.
+class JSONKey {
     static func string(_ json: [String: Any?], _ key: String) throws -> String {
         guard let value = json[key] else {
             throw SerializationError.missing(key, from: json)
@@ -45,8 +50,4 @@ class JSONUtils {
         return typedValue
     }
     
-    enum SerializationError: Error {
-        case missing(String, from: Any?)
-        case invalid(String, Any?)
-    }
 }

@@ -13,7 +13,7 @@ class U2FRunner {
             let message = try ChromeNativeMessaging.receiveMessage()
             let reply : [String : Any?]
             
-            let type = try JSONUtils.string(message, "type")
+            let type = try JSONKey.string(message, "type")
             switch type {
             case "enroll_helper_request":
                 reply = try processEnrollRequest(json: message)
@@ -106,8 +106,8 @@ class U2FRunner {
     
     static func getCounterAndApplicationParameter(metadata: Data) throws -> (UInt32, Data) {
         let json = try JSONSerialization.jsonObject(with: metadata) as! [String: Any?]
-        let counter = try UInt32(JSONUtils.int(json, "counter"))
-        let applicationParameter = try JSONUtils.webSafeBase64(json, "applicationParameter")
+        let counter = try UInt32(JSONKey.int(json, "counter"))
+        let applicationParameter = try JSONKey.webSafeBase64(json, "applicationParameter")
         return (counter, applicationParameter)
     }
 }

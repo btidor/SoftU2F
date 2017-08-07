@@ -42,14 +42,14 @@ class EnrollHelperRequest {
     let signChallenges: [SignChallenge]
     
     init(json: [String: Any?]) throws {
-        guard try JSONUtils.string(json, PARAM_TYPE) == TYPE else {
+        guard try JSONKey.string(json, PARAM_TYPE) == TYPE else {
             throw U2FError.internalError("Type mismatch")
         }
         
-        enrollChallenges = try JSONUtils.array(json, PARAM_ENROLL_CHALLENGES).map {
+        enrollChallenges = try JSONKey.array(json, PARAM_ENROLL_CHALLENGES).map {
             try EnrollChallenge($0)
         }
-        signChallenges = try JSONUtils.array(json, PARAM_SIGN_DATA).map {
+        signChallenges = try JSONKey.array(json, PARAM_SIGN_DATA).map {
             try SignChallenge($0)
         }
     }
@@ -86,11 +86,11 @@ class SignHelperRequest {
     let signChallenges: [SignChallenge]
     
     init(json: [String: Any?]) throws {
-        guard try JSONUtils.string(json, PARAM_TYPE) == TYPE else {
+        guard try JSONKey.string(json, PARAM_TYPE) == TYPE else {
             throw U2FError.internalError("Type mismatch")
         }
         
-        signChallenges = try JSONUtils.array(json, PARAM_SIGN_DATA).map {
+        signChallenges = try JSONKey.array(json, PARAM_SIGN_DATA).map {
             try SignChallenge($0)
         }
     }
@@ -147,9 +147,9 @@ class EnrollChallenge {
     let applicationParameter: Data
     
     init(_ json: [String: Any?]) throws {
-        version = try JSONUtils.string(json, PARAM_VERSION)
-        challengeParameter = try JSONUtils.webSafeBase64(json, PARAM_CHALLENGE_HASH)
-        applicationParameter = try JSONUtils.webSafeBase64(json, PARAM_APP_ID_HASH)
+        version = try JSONKey.string(json, PARAM_VERSION)
+        challengeParameter = try JSONKey.webSafeBase64(json, PARAM_CHALLENGE_HASH)
+        applicationParameter = try JSONKey.webSafeBase64(json, PARAM_APP_ID_HASH)
     }
 }
 
@@ -161,10 +161,10 @@ class SignChallenge {
     let keyHandle: Data
     
     init(_ json: [String: Any?]) throws {
-        version = try JSONUtils.string(json, PARAM_VERSION)
-        challengeParameter = try JSONUtils.webSafeBase64(json, PARAM_CHALLENGE_HASH)
-        applicationParameter = try JSONUtils.webSafeBase64(json, PARAM_APP_ID_HASH)
-        keyHandle = try JSONUtils.webSafeBase64(json, PARAM_KEY_HANDLE)
+        version = try JSONKey.string(json, PARAM_VERSION)
+        challengeParameter = try JSONKey.webSafeBase64(json, PARAM_CHALLENGE_HASH)
+        applicationParameter = try JSONKey.webSafeBase64(json, PARAM_APP_ID_HASH)
+        keyHandle = try JSONKey.webSafeBase64(json, PARAM_KEY_HANDLE)
     }
 }
 

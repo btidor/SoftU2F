@@ -12,7 +12,6 @@
 		51EF60B21E427EE200D429F2 /* UtilsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EF60B11E427EE200D429F2 /* UtilsTests.swift */; };
 		51F090101E37E8C600F03AD3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F0900F1E37E8C600F03AD3 /* AppDelegate.swift */; };
 		51FE30F11E410B3D00BAE824 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FE30F01E410B3D00BAE824 /* Utils.swift */; };
-		51FFC71F1E3FEAA4006275E2 /* SoftU2FTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FFC71E1E3FEAA4006275E2 /* SoftU2FTestCase.swift */; };
 		90508DE01F130B37003F32E1 /* ChromeNativeMessaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90508DDF1F130B37003F32E1 /* ChromeNativeMessaging.swift */; };
 		907B56641F1331CC00CB659D /* ChromeNativeMessagingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907B56631F1331CC00CB659D /* ChromeNativeMessagingTests.swift */; };
 		907B56681F13457400CB659D /* HelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 907B56671F13457400CB659D /* HelperProtocol.swift */; };
@@ -20,7 +19,8 @@
 		90C2D32C1F2D9BE30092F520 /* U2FRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C2D32B1F2D9BE30092F520 /* U2FRunner.swift */; };
 		90C2D33C1F2DB01A0092F520 /* TestUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C2D33B1F2DB01A0092F520 /* TestUtil.swift */; };
 		90C68BD11F366A35007A04DE /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C68BD01F366A35007A04DE /* Keychain.swift */; };
-		90D853011F37DBF8001B5B40 /* JSONUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D853001F37DBF8001B5B40 /* JSONUtils.swift */; };
+		90D853011F37DBF8001B5B40 /* JSONKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D853001F37DBF8001B5B40 /* JSONKey.swift */; };
+		90D853031F3834AB001B5B40 /* JSONKeyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D853021F3834AB001B5B40 /* JSONKeyTests.swift */; };
 		90D9C3051F1AF562009B6E3B /* HelperProtocolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D9C3041F1AF562009B6E3B /* HelperProtocolTests.swift */; };
 		90DF96651F2E99B20096A0A3 /* RawMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = F738F5081E4A2CF6005680A2 /* RawMessages.swift */; };
 		F71A9CC51EA810FA00809745 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F71A9CC41EA810FA00809745 /* MainMenu.xib */; };
@@ -84,7 +84,6 @@
 		51F0901D1E37E8C600F03AD3 /* SoftU2FToolTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SoftU2FToolTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		51F090231E37E8C600F03AD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		51FE30F01E410B3D00BAE824 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		51FFC71E1E3FEAA4006275E2 /* SoftU2FTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoftU2FTestCase.swift; sourceTree = "<group>"; };
 		90508DDF1F130B37003F32E1 /* ChromeNativeMessaging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChromeNativeMessaging.swift; sourceTree = "<group>"; };
 		907B56631F1331CC00CB659D /* ChromeNativeMessagingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChromeNativeMessagingTests.swift; sourceTree = "<group>"; };
 		907B56671F13457400CB659D /* HelperProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperProtocol.swift; sourceTree = "<group>"; };
@@ -92,7 +91,8 @@
 		90C2D32B1F2D9BE30092F520 /* U2FRunner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = U2FRunner.swift; sourceTree = "<group>"; };
 		90C2D33B1F2DB01A0092F520 /* TestUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtil.swift; sourceTree = "<group>"; };
 		90C68BD01F366A35007A04DE /* Keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
-		90D853001F37DBF8001B5B40 /* JSONUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONUtils.swift; sourceTree = "<group>"; };
+		90D853001F37DBF8001B5B40 /* JSONKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONKey.swift; sourceTree = "<group>"; };
+		90D853021F3834AB001B5B40 /* JSONKeyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONKeyTests.swift; sourceTree = "<group>"; };
 		90D9C3041F1AF562009B6E3B /* HelperProtocolTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelperProtocolTests.swift; sourceTree = "<group>"; };
 		F71A9CC41EA810FA00809745 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		F738F5081E4A2CF6005680A2 /* RawMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RawMessages.swift; path = ../APDU/RawMessages.swift; sourceTree = "<group>"; };
@@ -173,7 +173,7 @@
 				90508DDF1F130B37003F32E1 /* ChromeNativeMessaging.swift */,
 				909994791F2ED692007BBDDA /* Constants.swift */,
 				907B56671F13457400CB659D /* HelperProtocol.swift */,
-				90D853001F37DBF8001B5B40 /* JSONUtils.swift */,
+				90D853001F37DBF8001B5B40 /* JSONKey.swift */,
 				90C68BD01F366A35007A04DE /* Keychain.swift */,
 				F738F5081E4A2CF6005680A2 /* RawMessages.swift */,
 				90C2D32B1F2D9BE30092F520 /* U2FRunner.swift */,
@@ -191,7 +191,7 @@
 				51F090231E37E8C600F03AD3 /* Info.plist */,
 				907B56631F1331CC00CB659D /* ChromeNativeMessagingTests.swift */,
 				90D9C3041F1AF562009B6E3B /* HelperProtocolTests.swift */,
-				51FFC71E1E3FEAA4006275E2 /* SoftU2FTestCase.swift */,
+				90D853021F3834AB001B5B40 /* JSONKeyTests.swift */,
 				90C2D33B1F2DB01A0092F520 /* TestUtil.swift */,
 				51EF60B11E427EE200D429F2 /* UtilsTests.swift */,
 				51E214631E382529005B2864 /* WebSafeBase64Tests.swift */,
@@ -415,7 +415,7 @@
 				90C2D32C1F2D9BE30092F520 /* U2FRunner.swift in Sources */,
 				90C68BD11F366A35007A04DE /* Keychain.swift in Sources */,
 				907B56681F13457400CB659D /* HelperProtocol.swift in Sources */,
-				90D853011F37DBF8001B5B40 /* JSONUtils.swift in Sources */,
+				90D853011F37DBF8001B5B40 /* JSONKey.swift in Sources */,
 				51F090101E37E8C600F03AD3 /* AppDelegate.swift in Sources */,
 				51E214621E382521005B2864 /* WebSafeBase64.swift in Sources */,
 			);
@@ -427,10 +427,10 @@
 			files = (
 				907B56641F1331CC00CB659D /* ChromeNativeMessagingTests.swift in Sources */,
 				90D9C3051F1AF562009B6E3B /* HelperProtocolTests.swift in Sources */,
+				90D853031F3834AB001B5B40 /* JSONKeyTests.swift in Sources */,
 				51E214641E382529005B2864 /* WebSafeBase64Tests.swift in Sources */,
 				90C2D33C1F2DB01A0092F520 /* TestUtil.swift in Sources */,
 				51EF60B21E427EE200D429F2 /* UtilsTests.swift in Sources */,
-				51FFC71F1E3FEAA4006275E2 /* SoftU2FTestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

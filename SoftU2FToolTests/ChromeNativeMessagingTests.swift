@@ -4,8 +4,8 @@
 //
 
 import XCTest
-
 @testable import SoftU2FTool
+
 class ChromeNativeMessagingTests: XCTestCase {
     func testReceiveMessage() throws {
         class MockedChromeNativeMessaging: ChromeNativeMessaging {
