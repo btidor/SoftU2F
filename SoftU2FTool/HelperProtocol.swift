@@ -43,7 +43,7 @@ class EnrollHelperRequest {
     
     init(json: [String: Any?]) throws {
         guard try JSONUtils.string(json, PARAM_TYPE) == TYPE else {
-            throw U2FError.incorrectType
+            throw U2FError.internalError("Type mismatch")
         }
         
         enrollChallenges = try JSONUtils.array(json, PARAM_ENROLL_CHALLENGES).map {
@@ -87,7 +87,7 @@ class SignHelperRequest {
     
     init(json: [String: Any?]) throws {
         guard try JSONUtils.string(json, PARAM_TYPE) == TYPE else {
-            throw U2FError.incorrectType
+            throw U2FError.internalError("Type mismatch")
         }
         
         signChallenges = try JSONUtils.array(json, PARAM_SIGN_DATA).map {

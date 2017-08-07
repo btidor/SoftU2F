@@ -49,7 +49,7 @@ class U2FRunner {
         
         let sigPayload = RawMessages.registrationDataToSign(applicationParameter: challenge.applicationParameter, challengeParameter: challenge.challengeParameter, keyHandle: keyHandle, publicKey: publicKey)
         guard let sig = SelfSignedCertificate.sign(sigPayload) else {
-            throw U2FError.nilError
+            throw U2FError.internalError("SelfSignedCertificate failed to create signature")
         }
         let resp = RawMessages.registrationResponse(publicKey: publicKey, keyHandle: keyHandle, certificate: SelfSignedCertificate.toDer(), signature: sig)
         let reply = EnrollHelperReply(status: .OK, version: U2F_VERSION, data: resp)
