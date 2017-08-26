@@ -3,6 +3,8 @@
 //  U2FTouchID
 //
 
+// TODO: write tests
+
 import Foundation
 
 /// Helpers for constructing the packed binary messages used in the U2F
