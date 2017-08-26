@@ -1,11 +1,7 @@
 #!/bin/bash
 set -e
 
-KEXT="/Library/Extensions/softu2f.kext"
-LAUNCH_AGENT_PLIST="$HOME/Library/LaunchAgents/com.github.SoftU2FTool.plist"
-
-# Make sure the kext is loaded
-kextutil $KEXT
+LAUNCH_AGENT_PLIST="$HOME/Library/LaunchAgents/com.stripe.u2f-touchid.plist"
 
 # Write a LaunchAgent plist so app starts at login
 cat > $LAUNCH_AGENT_PLIST << EOT
@@ -14,12 +10,12 @@ cat > $LAUNCH_AGENT_PLIST << EOT
 <plist version="1.0">
 	<dict>
 		<key>Label</key>
-		<string>com.github.SoftU2FTool</string>
+		<string>com.stripe.u2f-touchid</string>
 		<key>Program</key>
-		<string>/Applications/SoftU2FTool.app/Contents/MacOS/SoftU2FTool</string>
+		<string>/Applications/U2FTouchID.app/Contents/MacOS/U2FTouchID</string>
 		<key>ProgramArguments</key>
 		<array>
-			<string>/Applications/SoftU2FTool.app/Contents/MacOS/SoftU2FTool</string>
+			<string>/Applications/U2FTouchID.app/Contents/MacOS/U2FTouchID</string>
 		</array>
 		<key>RunAtLoad</key>
 		<true/>

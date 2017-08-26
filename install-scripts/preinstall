@@ -1,7 +1,4 @@
 #!/bin/bash
 
-KEXT="/Library/Extensions/softu2f.kext"
-LAUNCH_AGENT_PLIST="$HOME/Library/LaunchAgents/com.github.SoftU2FTool.plist"
-
-kextunload $KEXT || true
+LAUNCH_AGENT_PLIST="$HOME/Library/LaunchAgents/com.stripe.u2f-touchid.plist"
 launchctl unload $LAUNCH_AGENT_PLIST || true
